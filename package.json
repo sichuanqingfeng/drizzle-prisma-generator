@@ -5,9 +5,10 @@
   "description": "Generate Drizzle schema from Prisma schema",
   "scripts": {
     "run": "pnpm run build && cd ../prisma-testbench && npx prisma generate dev && code ./src/db/schema.ts",
-    "build": "pnpm tsx scripts/build.ts",
+    "build": "tsx scripts/build.ts",
+    "prepare": "npm run build",
     "b": "pnpm build",
-    "pack": "(cd dist && npm pack --pack-destination ..) && rm -f package.tgz && mv *.tgz package.tgz",
+    "pack": "npm pack && rm -f package.tgz && mv *.tgz package.tgz",
     "release": "npm run build && npm run pack && npm publish package.tgz",
     "test": "vitest run",
     "lint": "dprint check --list-different"
@@ -38,8 +39,14 @@
     "ts",
     "schema"
   ],
-  "bin": "./index.js",
-  "main": "./index.js",
+  "bin": {
+    "drizzle-prisma-generator": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "repository": {
     "type": "git",
@@ -49,4 +56,3 @@
     "@prisma/generator-helper": "^5.14.0"
   }
 }
-
