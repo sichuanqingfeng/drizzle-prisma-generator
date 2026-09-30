@@ -1,5 +1,5 @@
 {
-	"name": "@sichuanqingfeng/drizzle-prisma-generator",
+	"name": "@underway/drizzle-prisma-generator",
 	"author": "Drizzle Team",
 	"version": "0.1.8",
 	"description": "Generate Drizzle schema from Prisma schema",
