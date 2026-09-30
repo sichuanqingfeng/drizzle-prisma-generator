@@ -63,4 +63,3 @@ export const generator = generatorHandler({
 });
 
 export default generator;
-

@@ -289,4 +289,3 @@ export const generatePgSchema = (options: GeneratorOptions) => {
 
 	return output;
 };
-

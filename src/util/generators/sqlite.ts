@@ -259,4 +259,3 @@ export const generateSQLiteSchema = (options: GeneratorOptions) => {
 
 	return output;
 };
-

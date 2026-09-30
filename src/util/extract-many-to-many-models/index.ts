@@ -172,4 +172,3 @@ export const extractManyToManyModels = (models: DMMF.Model[]): DMMF.Model[] => {
 
 	return generateModels(manyToManyFields, models, []);
 };
-

@@ -11,4 +11,3 @@ export const recursiveWrite = async (
 
 	fs.writeFileSync(path, content);
 };
-

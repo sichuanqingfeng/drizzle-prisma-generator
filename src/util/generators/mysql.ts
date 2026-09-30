@@ -269,4 +269,3 @@ export const generateMySqlSchema = (options: GeneratorOptions) => {
 
 	return output;
 };
-

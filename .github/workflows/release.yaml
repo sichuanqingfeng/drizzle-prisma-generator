@@ -4,19 +4,15 @@ on: workflow_dispatch
 
 jobs:
     release:
-        permissions: write-all
-        strategy:
-            fail-fast: false
-            matrix:
-                package:
-                    - drizzle-prisma-generator
-        runs-on: ubuntu-20.04
+        permissions:
+            contents: read
+        runs-on: ubuntu-24.04
         steps:
             - uses: actions/checkout@v4
 
             - uses: actions/setup-node@v4
               with:
-                  node-version: 18
+                  node-version: 22
                   registry-url: 'https://registry.npmjs.org'
 
             - uses: pnpm/action-setup@v3
@@ -30,7 +26,7 @@ jobs:
               id: pnpm-cache
               shell: bash
               run: |
-                  echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
+                  echo "STORE_PATH=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
 
             - uses: actions/cache@v4
               name: Setup pnpm cache
@@ -47,28 +43,28 @@ jobs:
               run: pnpm lint
 
             - name: Build
-              run: |
-                  pnpm build
+              run: pnpm run build
 
             - name: Pack
-              shell: bash
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
-              run: |
-                  npm run pack
+              run: npm run pack
 
             - name: Run @arethetypeswrong/cli
-              run: |
-                  pnpm attw package.tgz
+              run: pnpm exec attw package.tgz
 
             - name: Publish
               shell: bash
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
               run: |
-                  version="$(jq -r .version package.json)"
+                  if [ -z "$NODE_AUTH_TOKEN" ]; then
+                      echo "::error::Configure the NPM_ACCESS_TOKEN repository secret before publishing."
+                      exit 1
+                  fi
 
-                  echo "Publishing ${{ matrix.package }}@$version"
-                  npm run publish --access public
+                  package_name="$(jq -r .name dist/package.json)"
+                  version="$(jq -r .version dist/package.json)"
 
-                  echo "npm: \`+ ${{ matrix.package }}@$version\`" >> $GITHUB_STEP_SUMMARY
+                  echo "Publishing $package_name@$version"
+                  npm publish package.tgz --access public
+
+                  echo "npm: \`+ $package_name@$version\`" >> "$GITHUB_STEP_SUMMARY"

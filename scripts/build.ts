@@ -20,4 +20,5 @@ import { build } from 'tsup';
 
 	fs.copyFileSync('package.json', 'dist/package.json');
 	fs.copyFileSync('README.md', 'dist/README.md');
+	fs.copyFileSync('LICENSE', 'dist/LICENSE');
 })();
