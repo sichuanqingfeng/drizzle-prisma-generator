@@ -4,7 +4,14 @@ Automatically generate Drizzle schema from Prisma schema
 
 ## Usage
 
--  Install generator: `pnpm add -D drizzle-prisma-generator`
+-  Install generator: `pnpm add -D @sichuanqingfeng/drizzle-prisma-generator`
+-  Or install directly from GitHub:
+```sh
+npm install --save-dev github:sichuanqingfeng/drizzle-prisma-generator
+```
+Git installs build the generator automatically via `prepare`. Allow install scripts to run.
+For Docker builds, install dev dependencies (for example, `npm ci --include=dev`) before running `npx prisma generate`.
+The command name used by Prisma is still `drizzle-prisma-generator`:
 -  Add generator to prisma:  
 ```Prisma
 generator drizzle {
