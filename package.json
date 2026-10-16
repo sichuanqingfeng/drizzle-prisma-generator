@@ -1,5 +1,5 @@
 {
-  "name": "@dinglanTechnology/drizzle-prisma-generator",
+  "name": "@sichuanqingfeng/drizzle-prisma-generator",
   "author": "Drizzle Team",
   "version": "0.1.8",
   "description": "Generate Drizzle schema from Prisma schema",
@@ -43,7 +43,7 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dinglanTechnology/drizzle-prisma-generator.git"
+    "url": "git+https://github.com/sichuanqingfeng/drizzle-prisma-generator.git"
   },
   "dependencies": {
     "@prisma/generator-helper": "^5.14.0"
